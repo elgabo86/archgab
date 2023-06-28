@@ -11,7 +11,8 @@ LABEL com.github.containers.toolbox="true" \
 RUN pacman-key --init
 
 # Enable multilib & color
-RUN sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+RUN echo '[multilib]' >> /etc/pacman.conf
+RUN echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 RUN sed -i 's/#Color/Color/g' /etc/pacman.conf
 
 # Remove NoExtract
@@ -28,9 +29,6 @@ RUN rm /extra-packages
 # Clean up cache
 RUN pacman -Scc --noconfirm
 
-# Enable multilib
-RUN echo '[multilib]' >> /etc/pacman.conf
-RUN echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
