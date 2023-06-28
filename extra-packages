@@ -1,0 +1,17 @@
+bash-completion
+base-devel
+flatpak-xdg-utils
+git
+man-db
+man-pages
+mlocate
+openssh
+wget
+nano
+plasma-integration
+breeze
+kde-cli-tools
+breeze-gtk
+jre-openjdk
+pkgfile
+neofetch
