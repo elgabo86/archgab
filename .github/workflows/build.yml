@@ -1,4 +1,4 @@
-name: build-bazzite-arch
+name: build-archgab
 on:
   pull_request:
     branches:
@@ -9,7 +9,7 @@ on:
     branches:
       - main
 env:
-    IMAGE_NAME: bazzite-arch
+    IMAGE_NAME: archgab
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
