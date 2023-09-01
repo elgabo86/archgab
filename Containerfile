@@ -45,11 +45,8 @@ RUN echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 # Compiler boost
 RUN sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf
 
-# Add some AUR packages (test)
-RUN yay -S --aur --noconfirm tochd
-
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
 RUN ln -s /run/host/var/data2 /var
-
-
+RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
+RUN ln -s /run/host/run/systemd/system /run/systemd/
