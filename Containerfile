@@ -38,6 +38,10 @@ RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
 RUN pacman -Syu --noconfirm yay
 
+# Add some AUR packages (test)
+RUN yay -Syu --noconfirm tochd
+
+
 # Définir la langue par défaut
 RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
 
