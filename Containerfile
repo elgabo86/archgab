@@ -20,7 +20,6 @@ RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
 RUN pacman -Qqn | pacman -S --noconfirm -
 
-
 # Install extra packages
 COPY extra-packages /
 RUN pacman -Syu --needed --noconfirm - < extra-packages
@@ -28,7 +27,6 @@ RUN rm /extra-packages
 
 # Clean up cache
 RUN pacman -Scc --noconfirm
-
 
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
@@ -38,10 +36,6 @@ RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
 RUN pacman -Syu --noconfirm yay
 
-# Add some AUR packages (test)
-RUN yay -Syu --noconfirm tochd
-
-
 # Définir la langue par défaut
 RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
 
@@ -50,5 +44,12 @@ RUN echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Compiler boost
 RUN sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf
+
+# Add some AUR packages (test)
+RUN yay -Syu --noconfirm tochd
+
+# Add some custom ln silverblue (test)
+RUN ln -s /run/host/var/data1 /var
+RUN ln -s /run/host/var/data2 /var
 
 
