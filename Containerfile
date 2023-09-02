@@ -60,12 +60,12 @@ RUN pacman-key --lsign-key 3056513887B78AEB
 RUN pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
-RUN pacman -Syu --noconfirm yay
+RUN pacman -Syu --noconfirm yay obs-vkcapture-git lib32-obs-vkcapture-git
 
-# Add paru and install AUR packages
+# Add yay and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd --noconfirm
+RUN yay -S tochd downgrade --noconfirm
 USER root
 WORKDIR /
 
