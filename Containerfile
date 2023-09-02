@@ -1,6 +1,6 @@
 FROM docker.io/library/archlinux:latest
 
-Support Nvidia Container Runtime (https://developer.nvidia.com/nvidia-container-runtime)
+# Support Nvidia Container Runtime (https://developer.nvidia.com/nvidia-container-runtime)
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
 
