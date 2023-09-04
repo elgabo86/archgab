@@ -65,7 +65,7 @@ RUN pacman -Syu --noconfirm yay obs-vkcapture-git lib32-obs-vkcapture-git
 # Add yay and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd downgrade --noconfirm
+RUN yay -S tochd downgrade tgpt-bin --noconfirm
 USER root
 WORKDIR /
 
