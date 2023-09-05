@@ -28,3 +28,4 @@ lib32-libpulse
 lib32-openal
 mangohud
 lib32-mangohud
+lib32-sdl2
