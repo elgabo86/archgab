@@ -29,3 +29,4 @@ lib32-openal
 mangohud
 lib32-mangohud
 lib32-sdl2
+vulkan-tools
