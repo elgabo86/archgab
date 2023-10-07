@@ -21,10 +21,6 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-RUN    rm -rf \
-        /tmp/* \
-        /var/cache/pacman/pkg/*
-
 # Remove NoExtract
 RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
@@ -58,10 +54,6 @@ RUN rm /extra-packages
 # Clean up cache
 RUN pacman -Scc --noconfirm
 
-RUN    rm -rf \
-        /tmp/* \
-        /var/cache/pacman/pkg/*
-
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
 RUN pacman-key --lsign-key 3056513887B78AEB
@@ -73,7 +65,7 @@ RUN pacman -Syu --noconfirm yay obs-vkcapture-git lib32-obs-vkcapture-git edex-u
 # Add yay and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd downgrade hollywood --noconfirm
+#RUN yay -S tochd downgrade hollywood --noconfirm
 USER root
 WORKDIR /
 
@@ -90,7 +82,7 @@ RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
 RUN ln -s /run/host/run/systemd/system /run/systemd/
 
 # Init pkgfile
-RUN pkgfile --update
+#RUN pkgfile --update
 
 # Cleanup
 # Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
