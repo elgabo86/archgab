@@ -21,6 +21,10 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+RUN    rm -rf \
+        /tmp/* \
+        /var/cache/pacman/pkg/*
+
 # Remove NoExtract
 RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
@@ -53,6 +57,10 @@ RUN rm /extra-packages
 
 # Clean up cache
 RUN pacman -Scc --noconfirm
+
+RUN    rm -rf \
+        /tmp/* \
+        /var/cache/pacman/pkg/*
 
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
