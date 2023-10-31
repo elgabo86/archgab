@@ -20,6 +20,8 @@ RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
 RUN pacman -Qqn | pacman -S --noconfirm -
 
+# Install custom sh
+COPY customperso.sh /etc/profile.d/
 
 # Install extra packages
 COPY extra-packages /
