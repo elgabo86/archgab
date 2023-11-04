@@ -31,3 +31,4 @@ lib32-mangohud
 lib32-sdl2
 vulkan-tools
 pyenv
+distrobox
