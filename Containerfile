@@ -65,7 +65,7 @@ RUN pacman -Syu --noconfirm yay obs-vkcapture-git lib32-obs-vkcapture-git edex-u
 # Add yay and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd downgrade hollywood tgpt-bin --noconfirm
+RUN yay -S tochd downgrade hollywood --noconfirm
 USER root
 WORKDIR /
 
@@ -82,7 +82,7 @@ RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
 RUN ln -s /run/host/run/systemd/system /run/systemd/
 
 # Init pkgfile
-#RUN pkgfile --update
+RUN pkgfile --update
 
 # Cleanup
 # Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
