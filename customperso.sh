@@ -18,3 +18,7 @@ alias goody-nsfw="ytfzf --nsfw -cO"
 alias goody-nsfw-th="ytfzf -t -T chafa --nsfw -cO"
 alias gopee="ytfzf -cP"
 alias gopee-th="ytfzf -t -T chafa -cP"
+
+alias gomov="mov-cli"
+alias gomov2="lobster"
+alias goani="ani-cli"
