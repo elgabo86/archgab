@@ -61,9 +61,6 @@ RUN ln -s /run/host/var/data2 /var
 RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
 RUN ln -s /run/host/run/systemd/system /run/systemd/
 
-# Init pkgfile
-#RUN pkgfile --update
-
 # Cleanup
 # Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
 # We do this last because it'll only apply to updates the user makes going forward. We don't want to optimize for the build host's environment.
@@ -75,6 +72,9 @@ RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/m
     rm -rf \
         /tmp/* \
         /var/cache/pacman/pkg/*
+
+# Init pkgfile
+RUN pkgfile --update
 
 # Install custom sh
 COPY customperso.sh /etc/profile.d/
