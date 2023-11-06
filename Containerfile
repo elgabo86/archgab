@@ -62,7 +62,7 @@ RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
 RUN ln -s /run/host/run/systemd/system /run/systemd/
 
 # Init pkgfile
-RUN pkgfile --update
+#RUN pkgfile --update
 
 # Cleanup
 # Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
