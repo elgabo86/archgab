@@ -8,7 +8,9 @@ fi
 # fr_CH fix
 export LANG=fr_CH.UTF-8
 
-# alias
+#alias list
+
+alias golist="cat /etc/profile.d/customperso.sh | grep alias"
 
 alias goyou="ytfzf"
 alias goyou-th="ytfzf -t -T chafa"
@@ -19,6 +21,17 @@ alias goody-nsfw-th="ytfzf -t -T chafa --nsfw -cO"
 alias gopee="ytfzf -cP"
 alias gopee-th="ytfzf -t -T chafa -cP"
 
-alias gomov="mov-cli"
-alias gomov2="lobster"
-alias goani="ani-cli"
+alias gomovie="mov-cli"
+alias gomovie2="lobster"
+alias goanime="ani-cli"
+
+alias goradio="pyradio --no-themes"
+
+alias gospeedtest="speedtest++"
+
+alias gosend="ffsend upload"
+
+alias gogeek="edex-ui"
+alias goholly="hollywood"
+
+alias goconv="ffmpeg -i"

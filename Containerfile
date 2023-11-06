@@ -40,7 +40,7 @@ RUN pacman-key --lsign-key 3056513887B78AEB
 RUN pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
-RUN pacman -Syu --noconfirm yay ytfzf-git ani-cli obs-vkcapture-git lib32-obs-vkcapture-git edex-ui-bin yt-dlp gpt4all-chat-git
+RUN pacman -Syu --noconfirm yay ytfzf-git ani-cli obs-vkcapture-git lib32-obs-vkcapture-git edex-ui-bin yt-dlp gpt4all-chat-git ffsend-bin pyradio-git speedtest++
 
 # Add yay and install AUR packages
 USER build
