@@ -25,6 +25,10 @@ alias gomovie="mov-cli"
 alias gomovie2="lobster"
 alias goanime="ani-cli"
 
+alias goyew="yt"
+alias goyew-video-off="yt set show_video false"
+alias goyew-video-on="yt set show_video true"
+
 alias goradio="pyradio --no-themes"
 
 alias gospeedtest="speedtest++"
