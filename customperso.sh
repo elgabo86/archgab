@@ -39,3 +39,6 @@ alias gogeek="edex-ui"
 alias goholly="hollywood"
 
 alias goconv="ffmpeg -i"
+
+alias godl="plowdown"
+alias godl-init="plowmod --install"

@@ -45,7 +45,7 @@ RUN pacman -Syu --noconfirm yay ytfzf-git ani-cli obs-vkcapture-git lib32-obs-vk
 # Add yay and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd downgrade hollywood mov-cli-git lobster-git yewtube-git --noconfirm
+RUN yay -S tochd downgrade hollywood mov-cli-git lobster-git yewtube-git plowshare --noconfirm
 USER root
 WORKDIR /
 
