@@ -1,8 +1,4 @@
-FROM docker.io/library/archlinux:latest
-
-# Support Nvidia Container Runtime (https://developer.nvidia.com/nvidia-container-runtime)
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES all
+FROM quay.io/toolbx-images/archlinux-toolbox:latest
 
 # Pacman Initialization
 RUN pacman-key --init
@@ -21,6 +17,23 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# Distrobox Integration
+USER build
+WORKDIR /home/build
+RUN git clone https://github.com/KyleGospo/xdg-utils-distrobox-arch.git --single-branch && \
+    cd xdg-utils-distrobox-arch/trunk && \
+    makepkg -si --noconfirm && \
+    cd ../.. && \
+    rm -drf xdg-utils-distrobox-arch
+USER root
+WORKDIR /
+RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
+    cp /tmp/distrobox/distrobox-host-exec /usr/bin/distrobox-host-exec && \
+    ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
+    wget https://github.com/1player/host-spawn/releases/download/$(cat /tmp/distrobox/distrobox-host-exec | grep host_spawn_version= | cut -d "\"" -f 2)/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
+    chmod +x /usr/bin/host-spawn && \
+    rm -drf /tmp/distrobox
+
 # Remove NoExtract
 RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
@@ -30,9 +43,6 @@ RUN pacman -Qqn | pacman -S --noconfirm -
 COPY extra-packages /
 RUN pacman -Syu --needed --noconfirm - < extra-packages
 RUN rm /extra-packages
-
-# Clean up cache
-RUN pacman -Scc --noconfirm
 
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
@@ -48,6 +58,9 @@ WORKDIR /home/build
 RUN yay -S tochd downgrade hollywood mov-cli-git lobster-git yewtube-git plowshare --noconfirm
 USER root
 WORKDIR /
+
+# Clean up cache
+RUN pacman -Scc --noconfirm
 
 # Définir la langue par défaut
 RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
