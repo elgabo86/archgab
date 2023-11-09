@@ -89,7 +89,7 @@ RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/m
         /var/cache/pacman/pkg/*
 
 # Init pkgfile
-RUN pkgfile --update
+#RUN pkgfile --update
 
 # Install custom sh
 COPY customperso.sh /etc/profile.d/
