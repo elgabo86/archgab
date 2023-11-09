@@ -2,6 +2,7 @@ FROM quay.io/toolbx-images/archlinux-toolbox:latest
 
 # Pacman Initialization
 RUN pacman-key --init
+RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf
 
 # Create build user
 RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
@@ -35,7 +36,8 @@ RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/dis
     rm -drf /tmp/distrobox
 
 # Remove NoExtract
-RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
+#RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
+RUN sed -i '/NoExtract.*/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
 RUN pacman -Qqn | pacman -S --noconfirm -
 
