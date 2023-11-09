@@ -1,5 +1,9 @@
 FROM quay.io/toolbx-images/archlinux-toolbox:latest
 
+
+# Install custom sh
+COPY customperso.sh /etc/profile.d/
+
 # Pacman Initialization
 RUN pacman-key --init
 RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf
@@ -54,6 +58,9 @@ RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
 RUN pacman -Syu --noconfirm yay ytfzf-git ani-cli obs-vkcapture-git lib32-obs-vkcapture-git edex-ui-bin yt-dlp gpt4all-chat-git ffsend-bin pyradio-git speedtest++
 
+# Init pkgfile
+RUN pkgfile --update
+
 # Add yay and install AUR packages
 USER build
 WORKDIR /home/build
@@ -87,9 +94,3 @@ RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/m
     rm -rf \
         /tmp/* \
         /var/cache/pacman/pkg/*
-
-# Init pkgfile
-#RUN pkgfile --update
-
-# Install custom sh
-COPY customperso.sh /etc/profile.d/
