@@ -91,3 +91,6 @@ RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/m
     rm -rf \
         /tmp/* \
         /var/cache/pacman/pkg/*
+
+# Update pkgfile database
+RUN pkgfile --update
