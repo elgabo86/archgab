@@ -39,6 +39,7 @@ flatpak-xdg-utils
 git
 man-db
 man-pages
+man-fr
 mlocate
 openssh
 wget
