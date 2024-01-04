@@ -8,6 +8,9 @@ COPY customperso.sh /etc/profile.d/
 RUN pacman-key --init
 RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf
 
+#Update keys
+RUN pacman -Sy archlinux-keyring
+
 # Create build user
 RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" | tee -a /etc/pacman.conf && \
