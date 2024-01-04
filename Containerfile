@@ -9,7 +9,7 @@ RUN pacman-key --init
 RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf
 
 #Update keys
-RUN pacman -Sy archlinux-keyring
+RUN pacman -Sy archlinux-keyring --noconfirm
 
 # Create build user
 RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
