@@ -75,8 +75,6 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
-            ${{ steps.generate-tags.outputs.date }}
-            ${{ steps.generate-tags.outputs.sha_short }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 
