@@ -25,23 +25,6 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-# Distrobox Integration
-USER build
-WORKDIR /home/build
-RUN git clone https://github.com/KyleGospo/xdg-utils-distrobox-arch.git --single-branch && \
-    cd xdg-utils-distrobox-arch/trunk && \
-    makepkg -si --noconfirm && \
-    cd ../.. && \
-    rm -drf xdg-utils-distrobox-arch
-USER root
-WORKDIR /
-RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
-    cp /tmp/distrobox/distrobox-host-exec /usr/bin/distrobox-host-exec && \
-    ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
-    wget https://github.com/1player/host-spawn/releases/download/$(cat /tmp/distrobox/distrobox-host-exec | grep host_spawn_version= | cut -d "\"" -f 2)/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
-    chmod +x /usr/bin/host-spawn && \
-    rm -drf /tmp/distrobox
-
 # Remove NoExtract
 #RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN sed -i '/NoExtract.*/d' /etc/pacman.conf
