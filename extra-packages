@@ -35,7 +35,6 @@ vte-common
 vulkan-radeon
 bash-completion
 base-devel
-flatpak-xdg-utils
 git
 man-db
 man-pages-fr
@@ -43,14 +42,8 @@ mlocate
 openssh
 wget
 nano
-plasma-integration
-xdg-desktop-portal-kde
-breeze
-kde-cli-tools
-breeze-gtk
-jre-openjdk
 pkgfile
-neofetch
+fastfetch
 openal
 pipewire
 pipewire-pulse
@@ -66,10 +59,6 @@ lib32-mangohud
 lib32-sdl2
 vulkan-tools
 btop
-mpv
-chafa
-asciiquarium
 pyenv
 atuin
-xcb-util-cursor
 tk
