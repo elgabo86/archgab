@@ -29,11 +29,11 @@ jobs:
     steps: 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Build metadata
       - name: Image Metadata
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         id: meta
         with:
           images: |
@@ -77,6 +77,8 @@ jobs:
             ${{ steps.generate-tags.outputs.alias_tags }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
+          extra-args: |
+            --target=${{ matrix.base_name }} --security-opt=seccomp=unconfined
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
@@ -111,7 +113,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.1.0
+      - uses: sigstore/cosign-installer@v3.1.2
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
