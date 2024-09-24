@@ -1,32 +1,20 @@
-FROM quay.io/toolbx-images/archlinux-toolbox:latest
-
+FROM quay.io/toolbx/arch-toolbox:latest AS archgab
 
 # Install custom sh
 COPY customperso.sh /etc/profile.d/
 
-# Pacman Initialization
-RUN pacman-key --init
-RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf
-
-#Update keys
-RUN pacman -Sy archlinux-keyring --noconfirm
-
 # Create build user
-RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
+RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf && \
+    sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" | tee -a /etc/pacman.conf && \
     sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
+    pacman-key --init && pacman-key --populate && \
     pacman -Syu --noconfirm && \
-    pacman -S \
-        wget \
-        base-devel \
-        git \
-        --noconfirm && \
     useradd -m --shell=/bin/bash build && usermod -L build && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Remove NoExtract
-#RUN sed -i '/NoExtract.*usr\/share\/i18n/d' /etc/pacman.conf
 RUN sed -i '/NoExtract.*/d' /etc/pacman.conf
 RUN pacman -Syu glibc --noconfirm
 RUN pacman -Qqn | pacman -S --noconfirm -
@@ -39,10 +27,52 @@ RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/dis
     chmod +x /usr/bin/host-spawn && \
     rm -drf /tmp/distrobox
 
-# Install extra packages
-COPY extra-packages /
-RUN pacman -Syu --needed --noconfirm - < extra-packages
-RUN rm /extra-packages
+# Install packages Distrobox adds automatically, this speeds up first launch
+RUN pacman -S \
+        adw-gtk-theme \
+        bash-completion \
+        bc \
+        curl \
+        diffutils \
+        findutils \
+        glibc \
+        gnupg \
+        inetutils \
+        keyutils \
+        less \
+        lsof \
+        man-db \
+        man-pages \
+        mlocate \
+        mtr \
+        ncurses \
+        nss-mdns \
+        openssh \
+        pigz \
+        pinentry \
+        procps-ng \
+        rsync \
+        shadow \
+        sudo \
+        tcpdump \
+        time \
+        traceroute \
+        tree \
+        tzdata \
+        unzip \
+        util-linux \
+        util-linux-libs \
+        vte-common \
+        wget \
+        words \
+        xorg-xauth \
+        zip \
+        mesa \
+        opengl-driver \
+        vulkan-intel \
+        vte-common \
+        vulkan-radeon \
+        --noconfirm
 
 # Add Chaotic-aur
 RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
@@ -50,17 +80,47 @@ RUN pacman-key --lsign-key 3056513887B78AEB
 RUN pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 RUN echo '[chaotic-aur]' >> /etc/pacman.conf
 RUN echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
-RUN pacman -Syu --noconfirm yay edex-ui-bin blesh
 
-# Add yay and install AUR packages
+# Install custom packages
+RUN pacman -S \
+    base-devel \
+    git \
+    nano \
+    pkgfile \
+    fastfetch \
+    pipewire \
+    pipewire-pulse \
+    pipewire-alsa \
+    pipewire-jack \
+    wireplumber \
+    mangohud \
+    btop \
+    pyenv \
+    atuin \
+    tk \
+    yay \
+    edex-ui-bin \
+    blesh \
+    yay \
+    edex-ui-bin \
+    blesh \
+    downgrade \
+    --noconfirm
+
+# Add paru and install AUR packages
 USER build
 WORKDIR /home/build
-RUN yay -S tochd downgrade hollywood --noconfirm
+RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
+    cd paru-bin && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -drf paru-bin
+    paru -S \
+        tochd \
+        hollywood \
+        --confirm
 USER root
 WORKDIR /
-
-# Clean up cache
-RUN pacman -Scc --noconfirm
 
 # Définir la langue par défaut
 RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
@@ -74,11 +134,11 @@ RUN ln -s /run/host/var/data2 /var
 RUN ln -s /run/host/run/dbus/system_bus_socket  /run/dbus/
 RUN ln -s /run/host/run/systemd/system /run/systemd/
 
+# Native march & tune
+RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf
+
 # Cleanup
-# Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
-# We do this last because it'll only apply to updates the user makes going forward. We don't want to optimize for the build host's environment.
-RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
-    userdel -r build && \
+RUN userdel -r build && \
     rm -drf /home/build && \
     sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
     sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
