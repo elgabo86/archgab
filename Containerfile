@@ -118,6 +118,7 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
     paru -S \
         tochd \
         hollywood \
+        matm-bin \
         --noconfirm
 USER root
 WORKDIR /
