@@ -99,9 +99,6 @@ RUN pacman -S \
     pyenv \
     atuin \
     tk \
-    yay \
-    edex-ui-bin \
-    blesh \
     edex-ui-bin \
     blesh \
     downgrade \
