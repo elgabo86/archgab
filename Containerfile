@@ -102,7 +102,6 @@ RUN pacman -S \
     yay \
     edex-ui-bin \
     blesh \
-    yay \
     edex-ui-bin \
     blesh \
     downgrade \
@@ -119,7 +118,7 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
     paru -S \
         tochd \
         hollywood \
-        --confirm
+        --noconfirm
 USER root
 WORKDIR /
 
