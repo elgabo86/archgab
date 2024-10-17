@@ -116,6 +116,7 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
         tochd \
         hollywood \
         matm-bin \
+        lowfi \
         --noconfirm
 USER root
 WORKDIR /
