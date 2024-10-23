@@ -9,3 +9,5 @@ if grep -q 'ID=arch' /etc/os-release; then
 fi
 
 alias yay="paru"
+
+alias suyu-install="paru -Syu suyu-dev-qt6-git --noconfirm && distrobox-export --app suyu"

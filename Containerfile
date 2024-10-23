@@ -15,9 +15,9 @@ RUN sed -i 's/NoProgressBar/#NoProgressBar/g' /etc/pacman.conf && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Remove NoExtract
-#RUN sed -i '/NoExtract.*/d' /etc/pacman.conf
-#RUN pacman -Syu glibc --noconfirm
-#RUN pacman -Qqn | pacman -S --noconfirm -
+RUN sed -i '/NoExtract.*/d' /etc/pacman.conf
+RUN pacman -Syu glibc --noconfirm
+RUN pacman -Qqn | pacman -S --noconfirm -
 
 # Distrobox Integration
 RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
@@ -113,16 +113,15 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
     rm -drf paru-bin && \
     paru -S \
         tochd \
-        lowfi \
         --noconfirm
 USER root
 WORKDIR /
 
 # Définir la langue par défaut
-#RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
+RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
 
 # Générer et activer les paramètres régionaux
-#RUN echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
+RUN echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
