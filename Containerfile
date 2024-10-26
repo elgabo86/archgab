@@ -113,6 +113,7 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
     rm -drf paru-bin && \
     paru -S \
         tochd \
+        extract-xiso-git \
         --noconfirm
 USER root
 WORKDIR /
