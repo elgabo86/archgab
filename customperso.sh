@@ -12,3 +12,4 @@ alias yay="paru"
 
 alias suyu-install="paru -Syu suyu-dev-qt6-git --noconfirm && distrobox-export --app suyu"
 alias torzu-install="paru -Syu torzu-qt6-git  --noconfirm && distrobox-export --app torzu"
+alias ryu-install="paru -Syu ryujinx  --noconfirm && distrobox-export --app ryujinx"
