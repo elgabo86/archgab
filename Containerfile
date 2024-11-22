@@ -102,6 +102,7 @@ RUN pacman -S \
     blesh \
     downgrade \
     fuse2 \
+    gnu-free-fonts \
     --noconfirm
 
 # Add paru and install AUR packages
