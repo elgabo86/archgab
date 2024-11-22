@@ -101,6 +101,7 @@ RUN pacman -S \
     tk \
     blesh \
     downgrade \
+    fuse2 \
     --noconfirm
 
 # Add paru and install AUR packages
