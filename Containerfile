@@ -103,6 +103,7 @@ RUN pacman -S \
     downgrade \
     fuse2 \
     gnu-free-fonts \
+    xdvdfs \
     --noconfirm
 
 # Add paru and install AUR packages
@@ -115,7 +116,6 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
     rm -drf paru-bin && \
     paru -S \
         tochd \
-        extract-xiso-git \
         --noconfirm
 USER root
 WORKDIR /
