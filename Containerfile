@@ -67,12 +67,6 @@ RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
 USER root
 WORKDIR /
 
-# Définir la langue par défaut
-RUN echo "LANG=fr_CH.UTF-8" > /etc/locale.conf
-
-# Générer et activer les paramètres régionaux
-RUN echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
-
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
 RUN ln -s /run/host/var/data2 /var
