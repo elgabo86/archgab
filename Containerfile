@@ -29,6 +29,53 @@ RUN pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com && \
     echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf && \
     pacman -Syu --noconfirm
 
+# Install packages Distrobox adds automatically, this speeds up first launch
+RUN pacman -S \
+        adw-gtk-theme \
+        bash-completion \
+        bc \
+        curl \
+        diffutils \
+        findutils \
+        glibc \
+        gnupg \
+        inetutils \
+        keyutils \
+        less \
+        lsof \
+        man-db \
+        man-pages \
+        mesa \
+        mlocate \
+        mtr \
+        ncurses \
+        nss-mdns \
+        opengl-driver \
+        openssh \
+        pigz \
+        pinentry \
+        procps-ng \
+        rsync \
+        shadow \
+        sudo \
+        tcpdump \
+        time \
+        traceroute \
+        tree \
+        tzdata \
+        unzip \
+        util-linux \
+        util-linux-libs \
+        vte-common \
+        vulkan-intel \
+        vulkan-radeon \
+        wget \
+        words \
+        xorg-xauth \
+        zip \
+        --noconfirm && \
+    rm -rf /var/cache/pacman/pkg/*
+
 # Install custom packages
 RUN pacman -S \
     base-devel \
@@ -75,6 +122,10 @@ RUN ln -s /run/host/run/systemd/system /run/systemd/
 
 # Native march & tune
 RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf
+
+# Créez les liens symboliques pour Podman et Docker
+RUN ln -s /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
+    ln -s /usr/bin/distrobox-host-exec /usr/local/bin/docker
 
 # Cleanup
 RUN userdel -r build && \
