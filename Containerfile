@@ -13,6 +13,14 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# Ajouter la locale suisse-française
+RUN echo "fr_CH.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen
+
+# Définir la locale par défaut
+ENV LANG=fr_CH.UTF-8
+ENV LC_ALL=fr_CH.UTF-8
+
 # Distrobox Integration
 RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
     cp /tmp/distrobox/distrobox-host-exec /usr/bin/distrobox-host-exec && \
