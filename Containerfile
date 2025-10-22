@@ -76,8 +76,9 @@ RUN pacman -S \
         --noconfirm && \
     rm -rf /var/cache/pacman/pkg/*
 
-# Ajouter la locale suisse-française
+# Ajouter la locale suisse-française et us
 RUN echo "fr_CH.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen
 
 # Définir la locale par défaut
