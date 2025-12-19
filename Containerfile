@@ -112,8 +112,12 @@ RUN pacman -S \
 # Install paru from Chaotic-AUR first
 RUN pacman -S paru --noconfirm
 
-# Install AUR packages using paru
+# Create build user and install AUR packages
+USER build
+WORKDIR /home/build
 RUN paru -S tochd --noconfirm
+USER root
+WORKDIR /
 
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
