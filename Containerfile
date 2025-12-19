@@ -109,11 +109,11 @@ RUN pacman -S \
     xdvdfs \
     --noconfirm
 
-# Install AUR helper and packages
-RUN pacman -S \
-        paru \
-        tochd \
-        --noconfirm
+# Install paru from Chaotic-AUR first
+RUN pacman -S paru --noconfirm
+
+# Install AUR packages using paru
+RUN paru -S tochd --noconfirm
 
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
