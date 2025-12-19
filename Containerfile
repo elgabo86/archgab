@@ -109,19 +109,11 @@ RUN pacman -S \
     xdvdfs \
     --noconfirm
 
-# Add paru and install AUR packages
-USER build
-WORKDIR /home/build
-RUN git clone https://aur.archlinux.org/paru-bin.git --single-branch && \
-    cd paru-bin && \
-    makepkg -si --noconfirm && \
-    cd .. && \
-    rm -drf paru-bin && \
-    paru -S \
+# Install AUR helper and packages
+RUN pacman -S \
+        paru \
         tochd \
         --noconfirm
-USER root
-WORKDIR /
 
 # Add some custom ln silverblue (test)
 RUN ln -s /run/host/var/data1 /var
