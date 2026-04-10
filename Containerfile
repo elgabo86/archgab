@@ -100,7 +100,6 @@ RUN pacman -S \
     mangohud \
     btop \
     pyenv \
-    atuin \
     tk \
     blesh \
     downgrade \
