@@ -99,7 +99,7 @@ RUN pacman -S \
     wireplumber \
     mangohud \
     btop \
-    pyenv \
+    uv \
     tk \
     blesh \
     downgrade \
